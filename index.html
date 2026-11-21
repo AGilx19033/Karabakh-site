@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="az" data-theme="night">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karabakh Network — Azərbaycanın Minecraft Serveri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-main: #0c0a09;
+      --bg-card: #151210;
+      --bg-card-hover: #1c1815;
+      --bg-elevated: #221d19;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(245, 158, 11, 0.45);
+      --text-primary: #fafaf9;
+      --text-secondary: #a8a29e;
+      --text-muted: #78716c;
+      --accent: #f59e0b;
+      --accent-hover: #fbbf24;
+      --accent-soft: rgba(245, 158, 11, 0.14);
+      --green: #22c55e;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --shadow: 0 18px 40px -15px rgba(0, 0, 0, 0.65);
+    }
+
+    [data-theme="copper"] {
+      --bg-main: #120c08;
+      --bg-card: #1d140e;
+      --bg-card-hover: #261a12;
+      --bg-elevated: #312117;
+      --border-color: rgba(234, 88, 12, 0.18);
+      --border-hover: rgba(249, 115, 22, 0.55);
+      --text-primary: #fff7ed;
+      --text-secondary: #fed7aa;
+      --text-muted: #c2855a;
+      --accent: #f97316;
+      --accent-hover: #fb923c;
+      --accent-soft: rgba(249, 115, 22, 0.16);
+    }
+
+    [data-theme="light"] {
+      --bg-main: #f5f5f4;
+      --bg-card: #ffffff;
+      --bg-card-hover: #fafaf9;
+      --bg-elevated: #e7e5e4;
+      --border-color: rgba(0, 0, 0, 0.09);
+      --border-hover: rgba(217, 119, 6, 0.5);
+      --text-primary: #1c1917;
+      --text-secondary: #57534e;
+      --text-muted: #78716c;
+      --accent: #d97706;
+      --accent-hover: #b45309;
+      --accent-soft: rgba(217, 119, 6, 0.12);
+      --shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: color-mix(in srgb, var(--bg-main) 88%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-bar {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      cursor: pointer;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #00b5e2 0%, #ef3340 50%, #509e2f 100%);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 13px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pill-btn:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+    }
+
+    .pill-btn.bedrock {
+      border-color: rgba(34, 197, 94, 0.35);
+      color: #4ade80;
+      background: rgba(34, 197, 94, 0.08);
+    }
+
+    .pill-btn.primary {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .pill-btn.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .pill-btn.accept {
+      border-color: rgba(34, 197, 94, 0.45);
+      color: #4ade80;
+      background: rgba(34, 197, 94, 0.12);
+    }
+
+    .pill-btn.accept:hover {
+      background: rgba(34, 197, 94, 0.22);
+    }
+
+    .pill-btn.reject {
+      border-color: rgba(239, 68, 68, 0.45);
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.12);
+    }
+
+    .pill-btn.reject:hover {
+      background: rgba(239, 68, 68, 0.22);
+    }
+
+    main {
+      flex: 1;
+      padding: 30px 0 60px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .bento-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 215px;
+      box-shadow: var(--shadow);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+    }
+
+    .bento-card.wide {
+      grid-column: span 3;
+      min-height: 150px;
+      flex-direction: row;
+      align-items: center;
+      background: linear-gradient(90deg, rgba(127, 29, 29, 0.32) 0%, var(--bg-card) 65%);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-discount {
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-accepted {
+      background: rgba(34, 197, 94, 0.16);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      color: #4ade80;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 999px;
+    }
+
+    .badge-rejected {
+      background: rgba(239, 68, 68, 0.16);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      color: #f87171;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 999px;
+    }
+
+    .card-footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 2;
+      margin-top: auto;
+    }
+
+    .card-sub {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .circle-arrow {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .bento-card:hover .circle-arrow {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+    }
+
+    .center-emblem-card {
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      gap: 18px;
+      background: radial-gradient(circle at top, rgba(245, 158, 11, 0.15), var(--bg-card) 70%);
+    }
+
+    .emblem-shield {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #1f1916, #110e0c);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.18);
+    }
+
+    .ip-copy-box {
+      width: 100%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ip-copy-box:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .online-card {
+      text-align: center;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .online-count {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-top: 8px;
+    }
+
+    .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+      margin-right: 6px;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    .card-art {
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      width: 118px;
+      height: 118px;
+      opacity: 0.92;
+      pointer-events: none;
+    }
+
+    .bento-card.wide .card-art {
+      position: static;
+      width: 120px;
+      height: 100px;
+      margin-right: 20px;
+    }
+
+    .section-view {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .section-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .page-head h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .page-head p {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      margin-top: 4px;
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: all 0.2s;
+    }
+
+    .product-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .product-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      width: fit-content;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .price-now {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .price-old {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .input-control {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-control:focus {
+      border-color: var(--accent);
+    }
+
+    textarea.input-control {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .role-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .role-option {
+      background: var(--bg-elevated);
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .role-option.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .role-option h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .role-option p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    .status-ban { background: rgba(239, 68, 68, 0.16); color: #f87171; }
+    .status-mute { background: rgba(245, 158, 11, 0.16); color: #fbbf24; }
+    .status-kick { background: rgba(59, 130, 246, 0.16); color: #60a5fa; }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat-mini {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .stat-mini .val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .stat-mini .lbl {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .admin-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 14px;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .code-result-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--bg-elevated);
+      border: 1px dashed var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .app-card {
+      background: var(--bg-elevated);
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+    }
+
+    .app-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-card);
+      padding: 44px 0 28px;
+      margin-top: auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .footer-col li button, .footer-col li a {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-align: left;
+      transition: color 0.2s;
+    }
+
+    .footer-col li button:hover, .footer-col li a:hover {
+      color: var(--accent);
+    }
+
+    .theme-switcher {
+      display: inline-flex;
+      background: var(--bg-elevated);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      gap: 4px;
+      margin-top: 10px;
+    }
+
+    .theme-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .theme-btn.active {
+      background: var(--accent);
+      color: #111;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-color);
+      padding-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 440px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--accent);
+      color: var(--text-primary);
+      padding: 13px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      z-index: 200;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 920px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .bento-card.wide {
+        grid-column: span 1;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-grid, .admin-grid, .role-selector {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-bar">
+      <div class="brand" onclick="navigate('home')">
+        <div class="brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L4 6V12C4 17.5 7.4 21.8 12 23C16.6 21.8 20 17.5 20 12V6L12 2Z" fill="#111" stroke="#fff" stroke-width="1.6"/>
+            <path d="M12 7L13.5 10.5L17 12L13.5 13.5L12 17L10.5 13.5L7 12L10.5 10.5L12 7Z" fill="#f59e0b"/>
+          </svg>
+        </div>
+        <span id="site-brand-name">Karabakh Network</span>
+      </div>
+
+      <nav class="nav-links" id="main-nav"></nav>
+
+      <div class="nav-actions">
+        <button class="pill-btn bedrock" onclick="copyText('karabakhnw.mcsh.gg : 19132', 'Bedrock IP və Port (19132) kopyalandı!')">
+          📱 Bedrock: 19132
+        </button>
+        <button class="pill-btn" onclick="openRedeemModal()">🎁 Kod İstifadə Et</button>
+        <button class="pill-btn primary" id="admin-nav-btn" onclick="handleAdminClick()">🔐 İdarəçi Girişi</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="view-home" class="section-view active">
+      <div class="bento-grid">
+        <div class="bento-card" onclick="navigate('store')" style="cursor:pointer;">
+          <div class="card-header">
+            <h2 class="card-title">Mağaza</h2>
+            <span class="badge-discount" id="home-discount-badge">● ENDİRİM AKTİV</span>
+          </div>
+          <svg class="card-art" viewBox="0 0 120 120">
+            <rect x="42" y="18" width="36" height="36" rx="4" fill="#d97706"/>
+            <rect x="48" y="30" width="8" height="6" fill="#16a34a"/>
+            <rect x="64" y="30" width="8" height="6" fill="#16a34a"/>
+            <rect x="55" y="36" width="10" height="14" fill="#92400e"/>
+            <rect x="34" y="54" width="52" height="48" rx="6" fill="#1d4ed8"/>
+            <polygon points="60,64 74,78 60,92 46,78" fill="#22c55e"/>
+          </svg>
+          <div class="card-footer-bar">
+            <span class="card-sub">VIP, Rütbə və Açar yükləmə</span>
+            <span class="circle-arrow">→</span>
+          </div>
+        </div>
+
+        <div class="bento-card center-emblem-card">
+          <div class="emblem-shield">
+            <svg width="54" height="54" viewBox="0 0 64 64" fill="none">
+              <path d="M32 6L10 16V32C10 46.5 19.4 57.5 32 60C44.6 57.5 54 46.5 54 32V16L32 6Z" fill="url(#knGrad)" stroke="#fbbf24" stroke-width="2.5"/>
+              <path d="M22 22V42M22 32L32 22M22 32L32 42M37 22V42M37 22L46 42V22" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="knGrad" x1="10" y1="6" x2="54" y2="60" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#00b5e2"/>
+                  <stop offset="0.5" stop-color="#ef3340"/>
+                  <stop offset="1" stop-color="#509e2f"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <div style="font-weight:800;font-size:1.1rem;" id="hero-title">Karabakh Network</div>
+            <div style="font-size:0.82rem;color:var(--text-secondary);margin-top:2px;">Java & Bedrock (Port: 19132)</div>
+          </div>
+          <button class="ip-copy-box" onclick="copyText('karabakhnw.mcsh.gg', 'Server ünvanı kopyalandı: karabakhnw.mcsh.gg')">
+            📋 <span id="hero-ip-text">karabakhnw.mcsh.gg</span>
+          </button>
+        </div>
+
+        <div class="bento-card" onclick="navigate('staff')" style="cursor:pointer;">
+          <div class="card-header">
+            <h2 class="card-title">Yetkili Müraciəti</h2>
+            <span class="badge-discount">AAC & RƏHBƏR</span>
+          </div>
+          <svg class="card-art" viewBox="0 0 120 120">
+            <rect x="40" y="20" width="40" height="40" rx="4" fill="#fde68a"/>
+            <rect x="40" y="20" width="40" height="12" fill="#b45309"/>
+            <rect x="47" y="38" width="7" height="6" fill="#1e293b"/>
+            <rect x="66" y="38" width="7" height="6" fill="#1e293b"/>
+            <rect x="32" y="60" width="56" height="44" rx="6" fill="#7c3aed"/>
+            <rect x="48" y="68" width="24" height="24" rx="4" fill="#f59e0b"/>
+          </svg>
+          <div class="card-footer-bar">
+            <span class="card-sub">Komandamıza qoşul — AAC və ya Rəhbər ol</span>
+            <span class="circle-arrow">→</span>
+          </div>
+        </div>
+
+        <a class="bento-card" href="https://discord.gg/R29x5BvBW" target="_blank" rel="noopener">
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/></svg>
+              Discord
+            </h2>
+          </div>
+          <div style="z-index:2;margin:10px 0;">
+            <div style="font-size:1.75rem;font-weight:900;" id="discord-member-count">Yüklənir...</div>
+            <div class="card-sub" id="discord-online-sub"><span class="live-dot"></span>discord.gg/R29x5BvBW • qoşulmaq üçün kliklə</div>
+          </div>
+          <svg class="card-art" viewBox="0 0 120 120">
+            <rect x="20" y="34" width="54" height="44" rx="14" fill="#5865F2"/>
+            <circle cx="38" cy="56" r="6" fill="#fff"/>
+            <circle cx="56" cy="56" r="6" fill="#fff"/>
+            <rect x="68" y="22" width="34" height="34" rx="4" fill="#f9a8d4"/>
+            <rect x="64" y="56" width="42" height="44" rx="4" fill="#334155"/>
+          </svg>
+          <div class="card-footer-bar">
+            <span class="card-sub">Rəsmi icma serveri</span>
+            <span class="circle-arrow">→</span>
+          </div>
+        </a>
+
+        <div class="bento-card online-card">
+          <div style="width:100%;">
+            <div class="online-count" id="online-players">...</div>
+            <div class="card-sub" style="margin-top:6px;" id="server-status-label"><span class="live-dot"></span>Server yoxlanılır...</div>
+          </div>
+          <div class="card-footer-bar" style="width:100%;padding-top:16px;border-top:1px solid var(--border-color);">
+            <span class="card-sub" style="font-weight:700;" id="server-version-label">İŞ BİRLİYİ: karabakhnetwork@gmail.com</span>
+            <a href="mailto:karabakhnetwork@gmail.com" class="circle-arrow" title="E-poçt göndər">✉</a>
+          </div>
+        </div>
+
+        <div class="bento-card" onclick="navigate('support')" style="cursor:pointer;">
+          <div class="card-header">
+            <h2 class="card-title">Dəstək</h2>
+          </div>
+          <svg class="card-art" viewBox="0 0 120 120">
+            <rect x="44" y="20" width="38" height="38" rx="4" fill="#fbbf24"/>
+            <rect x="44" y="20" width="38" height="10" fill="#78350f"/>
+            <rect x="36" y="58" width="54" height="44" rx="6" fill="#15803d"/>
+            <rect x="24" y="64" width="26" height="20" rx="3" fill="#fef3c7" transform="rotate(-12 24 64)"/>
+          </svg>
+          <div class="card-footer-bar">
+            <span class="card-sub">Sorğu aç, etiraz et, yardım al</span>
+            <span class="circle-arrow">→</span>
+          </div>
+        </div>
+
+        <div class="bento-card wide" onclick="navigate('punishments')" style="cursor:pointer;">
+          <div style="z-index:2;">
+            <h2 class="card-title" style="font-size:1.55rem;margin-bottom:8px;">Cəzalar</h2>
+            <p class="card-sub" id="home-punishments-summary">0 qeyd • bu həftə 0 • qadağa yoxla, etiraz et</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:18px;z-index:2;">
+            <svg class="card-art" viewBox="0 0 120 100">
+              <rect x="14" y="20" width="36" height="36" rx="4" fill="#22c55e"/>
+              <rect x="20" y="28" width="7" height="7" fill="#111"/>
+              <rect x="37" y="28" width="7" height="7" fill="#111"/>
+              <rect x="27" y="37" width="10" height="12" fill="#111"/>
+              <rect x="18" y="56" width="28" height="34" fill="#16a34a"/>
+              <rect x="66" y="16" width="38" height="38" rx="4" fill="#fca5a5"/>
+              <rect x="60" y="54" width="50" height="38" rx="4" fill="#991b1b"/>
+            </svg>
+            <span class="circle-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-store" class="section-view">
+      <div class="page-head">
+        <div>
+          <h1>Karabakh Network Mağazası</h1>
+          <p>Rütbələr, VIP paketləri və xüsusi sandıq açarları. Promokod ilə endirim əldə edin!</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="promo-input" class="input-control" placeholder="Promokod daxil edin..." style="width:200px;" />
+          <button class="pill-btn primary" onclick="applyPromoCode()">Tətbiq Et</button>
+        </div>
+      </div>
+      <div id="active-promo-banner" style="display:none;margin-bottom:18px;" class="panel"></div>
+      <div class="store-grid" id="store-items-grid"></div>
+    </section>
+
+    <section id="view-support" class="section-view">
+      <div class="page-head">
+        <div>
+          <h1>Dəstək Mərkəzi</h1>
+          <p>Probleminiz var və ya cəzaya etiraz etmək istəyirsiniz? Aşağıdan bilet (ticket) yaradın.</p>
+        </div>
+      </div>
+      <div class="admin-grid">
+        <div class="panel">
+          <h3 style="margin-bottom:16px;">Yeni Dəstək Sorğusu</h3>
+          <form onsubmit="submitSupportTicket(event)">
+            <div class="form-group">
+              <label>Oyunçu Adınız (Nick)</label>
+              <input type="text" id="sup-nick" class="input-control" placeholder="Məs: Agil_AZ" required />
+            </div>
+            <div class="form-group">
+              <label>Kateqoriya</label>
+              <select id="sup-cat" class="input-control">
+                <option value="Ümumi Yardım">Ümumi Yardım</option>
+                <option value="Cəzaya Etiraz (Unban)">Cəzaya Etiraz (Unban)</option>
+                <option value="Mağaza / Ödəniş Problemi">Mağaza / Ödəniş Problemi</option>
+                <option value="Xəta / Bug Bildirişi">Xəta / Bug Bildirişi</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Açıqlama</label>
+              <textarea id="sup-msg" class="input-control" placeholder="Probleminizi ətraflı yazın..." required></textarea>
+            </div>
+            <button type="submit" class="pill-btn primary" style="width:100%;justify-content:center;padding:12px;">Sorğunu Göndər</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-bottom:16px;">Son Dəstək Sorğularınız</h3>
+          <div id="support-tickets-list" style="display:flex;flex-direction:column;gap:12px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-staff" class="section-view">
+      <div class="page-head">
+        <div>
+          <h1>Yetkili Müraciəti</h1>
+          <p>Vəzifə seçin və müvafiq sualları cavablandıraraq müraciətinizi göndərin.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="role-selector">
+          <div class="role-option selected" id="role-card-rehber" onclick="selectStaffRole('rehber')">
+            <h3>📘 Rəhbər</h3>
+            <p>Server haqqında oyunçulara məlumat verən, yeni gələnlərə kömək edən və söhbət nizamını qoruyan şəxslərdir.</p>
+          </div>
+          <div class="role-option" id="role-card-aac" onclick="selectStaffRole('aac')">
+            <h3>🛡️ AAC (Anti-Cheat Yoxlayıcı)</h3>
+            <p>Oyunçularda hilə (cheat/client) olub-olmadığını yoxlayan, ekran paylaşımı (SS) və şübhəli hərəkətləri analiz edən mütəxəssislərdir.</p>
+          </div>
+        </div>
+
+        <form id="staff-application-form" onsubmit="submitStaffApplication(event)">
+          <div class="admin-grid">
+            <div class="form-group">
+              <label>Oyunçu Adınız (Nick)</label>
+              <input type="text" id="app-nick" class="input-control" placeholder="Minecraft adınız" required />
+            </div>
+            <div class="form-group">
+              <label>Discord İstifadəçi Adınız</label>
+              <input type="text" id="app-discord" class="input-control" placeholder="Məs: istifadeci#0000" required />
+            </div>
+          </div>
+          <div id="dynamic-staff-questions"></div>
+          <button type="submit" class="pill-btn primary" style="padding:12px 24px;">Müraciəti Təsdiqlə və Göndər</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="view-punishments" class="section-view">
+      <div class="page-head">
+        <div>
+          <h1>Cəzalar və Qadağalar</h1>
+          <p>Serverdə tətbiq olunan aktiv Ban, Mute və Kick qeydlərini yoxlayın.</p>
+        </div>
+        <input type="text" id="punishment-search" class="input-control" placeholder="Oyunçu adı axtar..." oninput="renderPunishments()" style="width:240px;" />
+      </div>
+      <div class="stats-strip" id="punishments-stats-strip"></div>
+      <div class="panel table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Oyunçu</th>
+              <th>Növ</th>
+              <th>Səbəb</th>
+              <th>Yetkili</th>
+              <th>Müddət</th>
+              <th>Tarix</th>
+            </tr>
+          </thead>
+          <tbody id="punishments-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="view-custom" class="section-view">
+      <div class="page-head">
+        <div>
+          <h1 id="custom-page-title">Bölmə</h1>
+          <p>Karabakh Network rəsmi məlumat səhifəsi</p>
+        </div>
+      </div>
+      <div class="panel" id="custom-page-body" style="line-height:1.7;font-size:0.98rem;"></div>
+    </section>
+
+    <section id="view-admin" class="section-view">
+      <div class="page-head">
+        <div>
+          <h1>İdarəçi Paneli (Admin)</h1>
+          <p>Rəhbər və AAC müraciətlərini yoxlayın, qəbul/rədd edin, kodlar və sayt tənzimləmələrini idarə edin.</p>
+        </div>
+        <button class="pill-btn" onclick="logoutAdmin()">🚪 Çıxış Et</button>
+      </div>
+
+      <div class="panel">
+        <div class="admin-tabs">
+          <button class="pill-btn primary" onclick="switchAdminTab('inbox', this)">📩 Rəhbər & AAC Alımları</button>
+          <button class="pill-btn" onclick="switchAdminTab('codes', this)">🎁 Kod Yarat</button>
+          <button class="pill-btn" onclick="switchAdminTab('promos', this)">🏷️ Promokod Yarat</button>
+          <button class="pill-btn" onclick="switchAdminTab('products', this)">🛒 Mağaza İdarəsi</button>
+          <button class="pill-btn" onclick="switchAdminTab('punish-admin', this)">🔨 Cəza / Qadağa</button>
+          <button class="pill-btn" onclick="switchAdminTab('questions', this)">❓ Yetkili Sualları</button>
+          <button class="pill-btn" onclick="switchAdminTab('site', this)">⚙️ Sayt & Sekmələr</button>
+        </div>
+
+        <div id="admin-tab-inbox" class="admin-tab-content">
+          <div class="admin-grid">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+                <h3>Rəhbər və AAC Müraciətləri (<span id="admin-app-count">0</span>)</h3>
+                <div style="display:flex;gap:6px;">
+                  <button class="pill-btn primary" id="filter-app-all" onclick="setAppFilter('all')">Hamısı</button>
+                  <button class="pill-btn" id="filter-app-rehber" onclick="setAppFilter('rehber')">📘 Rəhbər</button>
+                  <button class="pill-btn" id="filter-app-aac" onclick="setAppFilter('aac')">🛡️ AAC</button>
+                </div>
+              </div>
+              <div id="admin-applications-list" style="display:flex;flex-direction:column;gap:12px;"></div>
+            </div>
+            <div>
+              <h3 style="margin-bottom:14px;">Gələn Dəstək Sorğuları</h3>
+              <div id="admin-tickets-list" style="display:flex;flex-direction:column;gap:12px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-tab-codes" class="admin-tab-content" style="display:none;">
+          <div class="admin-grid">
+            <div>
+              <h3 style="margin-bottom:14px;">Hədiyyə / Mükafat Kodu Yarat</h3>
+              <div class="form-group">
+                <label>Kod nə olacaq? (Məs: KARABAKH2026)</label>
+                <input type="text" id="new-code-name" class="input-control" placeholder="Kodu yazın və ya boş buraxın..." />
+              </div>
+              <div class="form-group">
+                <label>Kod nə verəcək? (Mükafat açıqlaması)</label>
+                <input type="text" id="new-code-reward" class="input-control" placeholder="Məs: 3 Günlük VIP + 5000 Oyun Pulu" />
+              </div>
+              <button class="pill-btn primary" onclick="createRewardCode()">✨ Kod Oluştur</button>
+
+              <div id="created-code-preview" class="code-result-box" style="display:none;">
+                <div>
+                  <div style="font-size:0.78rem;color:var(--text-secondary);">Yaradılan Kod:</div>
+                  <div style="font-weight:800;font-size:1.1rem;color:var(--accent);" id="preview-code-val"></div>
+                  <div style="font-size:0.84rem;margin-top:2px;" id="preview-reward-val"></div>
+                </div>
+                <button class="pill-btn" onclick="copyText(document.getElementById('preview-code-val').innerText, 'Kod kopyalandı!')">Kopyala</button>
+              </div>
+            </div>
+
+            <div>
+              <h3 style="margin-bottom:14px;">Aktiv Hədiyyə Kodları</h3>
+              <div id="admin-codes-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-tab-promos" class="admin-tab-content" style="display:none;">
+          <div class="admin-grid">
+            <div>
+              <h3 style="margin-bottom:14px;">Mağaza Üçün Promokod Yarat</h3>
+              <div class="form-group">
+                <label>Promokod Adı</label>
+                <input type="text" id="new-promo-code" class="input-control" placeholder="Məs: ENDIRIM25" />
+              </div>
+              <div class="form-group">
+                <label>Endirim Faizi Seçin (%)</label>
+                <select id="new-promo-percent" class="input-control">
+                  <option value="10">%10 Endirim</option>
+                  <option value="15">%15 Endirim</option>
+                  <option value="20">%20 Endirim</option>
+                  <option value="25" selected>%25 Endirim</option>
+                  <option value="30">%30 Endirim</option>
+                  <option value="40">%40 Endirim</option>
+                  <option value="50">%50 Endirim</option>
+                  <option value="75">%75 Endirim</option>
+                </select>
+              </div>
+              <button class="pill-btn primary" onclick="createPromoCode()">🏷️ Promokod Oluştur</button>
+            </div>
+
+            <div>
+              <h3 style="margin-bottom:14px;">Mövcud Promokodlar</h3>
+              <div id="admin-promos-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-tab-products" class="admin-tab-content" style="display:none;">
+          <div class="admin-grid">
+            <div>
+              <h3 style="margin-bottom:14px;">Satılacaq Yeni Məhsul Əlavə Et</h3>
+              <div class="form-group">
+                <label>Məhsulun Adı</label>
+                <input type="text" id="prod-name" class="input-control" placeholder="Məs: MVIP+ (30 Gün)" />
+              </div>
+              <div class="form-group">
+                <label>Kateqoriya</label>
+                <input type="text" id="prod-cat" class="input-control" placeholder="Məs: Rütbə / Açar / Pul" />
+              </div>
+              <div class="form-group">
+                <label>Qiymət (AZN ₼)</label>
+                <input type="number" id="prod-price" class="input-control" placeholder="Məs: 12" min="1" step="0.5" />
+              </div>
+              <div class="form-group">
+                <label>Qısa Açıqlama</label>
+                <input type="text" id="prod-desc" class="input-control" placeholder="Məs: Uçuş, xüsusi dəstlər və rəngli ad" />
+              </div>
+              <button class="pill-btn primary" onclick="addProduct()">➕ Məhsulu Əlavə Et</button>
+            </div>
+
+            <div>
+              <h3 style="margin-bottom:14px;">Mağazadakı Məhsullar (Silə bilərsiniz)</h3>
+              <div id="admin-products-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-tab-punish-admin" class="admin-tab-content" style="display:none;">
+          <div class="admin-grid">
+            <div>
+              <h3 style="margin-bottom:14px;">Yeni Cəza / Qadağa Əlavə Et</h3>
+              <div class="form-group">
+                <label>Oyunçu Adı (Nick)</label>
+                <input type="text" id="pun-player" class="input-control" placeholder="Məs: HileciOyunçu" />
+              </div>
+              <div class="form-group">
+                <label>Cəza Növü</label>
+                <select id="pun-type" class="input-control">
+                  <option value="BAN">BAN (Serverdən Qadağa)</option>
+                  <option value="MUTE">MUTE (Söhbət Qadağası)</option>
+                  <option value="KICK">KICK (Serverdən Atılma)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Səbəb</label>
+                <input type="text" id="pun-reason" class="input-control" placeholder="Məs: KillAura / AAC Yoxlaması" />
+              </div>
+              <div class="admin-grid">
+                <div class="form-group">
+                  <label>Yetkili Adı</label>
+                  <input type="text" id="pun-staff" class="input-control" placeholder="Məs: AAC_Yetkili" />
+                </div>
+                <div class="form-group">
+                  <label>Müddət</label>
+                  <input type="text" id="pun-duration" class="input-control" placeholder="Məs: 30 Gün / Müddətsiz" />
+                </div>
+              </div>
+              <button class="pill-btn primary" onclick="addPunishmentRecord()">🔨 Cəzanı Əlavə Et</button>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                <h3>Cəza Qeydləri (<span id="admin-punish-count">0</span>)</h3>
+                <button class="pill-btn" onclick="clearAllPunishments()" style="color:#f87171;">Hamısını Sıfırla</button>
+              </div>
+              <div id="admin-punishments-list" style="display:flex;flex-direction:column;gap:10px;max-height:380px;overflow-y:auto;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin-tab-questions" class="admin-tab-content" style="display:none;">
+          <div class="admin-grid">
+            <div>
+              <h3 style="margin-bottom:14px;">📘 Rəhbər Suallarını Dəyişdir</h3>
+              <div id="edit-rehber-questions"></div>
+              <button class="pill-btn" onclick="addQuestionField('rehber')">+ Yeni Sual Əlavə Et</button>
+            </div>
+            <div>
+              <h3 style="margin-bottom:14px;">🛡️ AAC Suallarını Dəyişdir</h3>
+              <div id="edit-aac-questions"></div>
+              <button class="pill-btn" onclick="addQuestionField('aac')">+ Yeni Sual Əlavə Et</button>
+            </div>
+          </div>
+          <div style="margin-top:18px;">
+            <button class="pill-btn primary" onclick="saveStaffQuestions()">💾 Sualları Yadda Saxla</button>
+          </div>
+        </div>
+
+        <div id="admin-tab-site" class="admin-tab-content" style="display:none;">
+          <div class="admin-grid">
+            <div>
+              <h3 style="margin-bottom:14px;">Sayt Məlumatlarında Dəyişiklik Et</h3>
+              <div class="form-group">
+                <label>Sayt Başlığı</label>
+                <input type="text" id="cfg-brand" class="input-control" />
+              </div>
+              <div class="form-group">
+                <label>Java Server IP</label>
+                <input type="text" id="cfg-ip" class="input-control" />
+              </div>
+              <div class="form-group">
+                <label>Bedrock Port</label>
+                <input type="text" id="cfg-port" class="input-control" />
+              </div>
+              <div class="form-group">
+                <label>İş Birliyi E-poçtu</label>
+                <input type="email" id="cfg-email" class="input-control" />
+              </div>
+              <button class="pill-btn primary" onclick="saveSiteSettings()">💾 Dəyişiklikləri Saxla</button>
+            </div>
+
+            <div>
+              <h3 style="margin-bottom:14px;">Yeni Sekmə (Səhifə) Əlavə Et</h3>
+              <div class="form-group">
+                <label>Sekmə Adı (Menyuda görünəcək)</label>
+                <input type="text" id="new-tab-name" class="input-control" placeholder="Məs: Qaydalar / Yeniliklər" />
+              </div>
+              <div class="form-group">
+                <label>Səhifə Məzmunu</label>
+                <textarea id="new-tab-content" class="input-control" placeholder="Bu sekməyə kliklədikdə görünəcək məlumatı yazın..."></textarea>
+              </div>
+              <button class="pill-btn primary" onclick="addCustomTab()">➕ Yeni Sekmə Əlavə Et</button>
+
+              <h4 style="margin:18px 0 10px;color:var(--text-secondary);">Əlavə Edilmiş Sekmələr</h4>
+              <div id="custom-tabs-admin-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand" style="margin-bottom:10px;">
+            <div class="brand-logo" style="width:30px;height:30px;">★</div>
+            <span id="footer-brand">Karabakh Network</span>
+          </div>
+          <p style="font-size:0.84rem;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;">
+            Azərbaycanın Minecraft şəbəkəsi. Java və Bedrock dəstəyi ilə fasiləsiz oyun təcrübəsi.
+          </p>
+          <button class="ip-copy-box" style="width:fit-content;font-size:0.82rem;" onclick="copyText('karabakhnw.mcsh.gg', 'IP kopyalandı!')">
+            karabakhnw.mcsh.gg <span style="color:var(--accent);">Kopyala</span>
+          </button>
+
+          <div style="margin-top:16px;">
+            <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);letter-spacing:0.06em;">TEMA</div>
+            <div class="theme-switcher">
+              <button class="theme-btn" data-theme-val="copper" onclick="setTheme('copper')">🟠 Mis</button>
+              <button class="theme-btn active" data-theme-val="night" onclick="setTheme('night')">🌙 Gecə</button>
+              <button class="theme-btn" data-theme-val="light" onclick="setTheme('light')">☀️ Açıq</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>SERVER</h4>
+          <ul>
+            <li><button onclick="navigate('home')">Ana Səhifə</button></li>
+            <li><button onclick="navigate('store')">Mağaza</button></li>
+            <li><button onclick="navigate('punishments')">Cəzalar</button></li>
+            <li><button onclick="copyText('karabakhnw.mcsh.gg : 19132', 'Bedrock Port 19132 kopyalandı!')">Bedrock Port: 19132</button></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>DƏSTƏK & YETKİLİ</h4>
+          <ul>
+            <li><button onclick="navigate('support')">Dəstək Mərkəzi</button></li>
+            <li><button onclick="navigate('staff');selectStaffRole('rehber')">Rəhbər Müraciəti</button></li>
+            <li><button onclick="navigate('staff');selectStaffRole('aac')">AAC Müraciəti</button></li>
+            <li><a href="https://discord.gg/R29x5BvBW" target="_blank" rel="noopener">Discord Serveri</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>ƏLAQƏ & İŞ BİRLİYİ</h4>
+          <ul>
+            <li><a href="mailto:karabakhnetwork@gmail.com" id="footer-email">karabakhnetwork@gmail.com</a></li>
+            <li><button onclick="openRedeemModal()">Hədiyyə Kodu İstifadə Et</button></li>
+            <li><button onclick="handleAdminClick()">İdarəçi Paneli</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Karabakh Network — Mojang və ya Microsoft ilə əlaqəli deyil.</span>
+        <span>İş birliyi: karabakhnetwork@gmail.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="admin-login-modal">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3>🔐 İdarəçi Hesabı ilə Giriş</h3>
+        <button class="pill-btn" onclick="closeModal('admin-login-modal')">✕</button>
+      </div>
+      <form onsubmit="verifyAdminLogin(event)">
+        <div class="form-group">
+          <label>İdarəçi Şifrəsi</label>
+          <input type="password" id="admin-password-input" class="input-control" placeholder="Şifrəni daxil edin..." required />
+        </div>
+        <button type="submit" class="pill-btn primary" style="width:100%;justify-content:center;padding:12px;">Daxil Ol</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="redeem-modal">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3>🎁 Kod İstifadə Et</h3>
+        <button class="pill-btn" onclick="closeModal('redeem-modal')">✕</button>
+      </div>
+      <form onsubmit="redeemUserCode(event)">
+        <div class="form-group">
+          <label>Oyunçu Adınız</label>
+          <input type="text" id="redeem-nick" class="input-control" placeholder="Minecraft adınız" required />
+        </div>
+        <div class="form-group">
+          <label>Hədiyyə Kodu</label>
+          <input type="text" id="redeem-code-input" class="input-control" placeholder="Məs: KARABAKH2026" required />
+        </div>
+        <button type="submit" class="pill-btn primary" style="width:100%;justify-content:center;padding:12px;">Kodu Aktivləşdir</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const ADMIN_PASS = "abdullayev00.V";
+    const STORAGE_KEY = "karabakh_network_state_v1";
+
+    const defaultState = {
+      settings: {
+        brand: "Karabakh Network",
+        ip: "karabakhnw.mcsh.gg",
+        port: "19132",
+        email: "karabakhnetwork@gmail.com"
+      },
+      customTabs: [
+        {
+          id: "qaydalar",
+          name: "Qaydalar",
+          content: "1. Hilə (Cheat / X-Ray / KillAura) istifadəsi qəti qadağandır.\n2. Söhbətdə təhqir, reklam və spam etmək olmaz.\n3. Yetkililərin qərarlarına hörmətlə yanaşın və AAC yoxlamasından imtina etməyin."
+        }
+      ],
+      products: [
+        { id: 1, name: "VIP (30 Gün)", category: "Rütbə", price: 5, desc: "Rəngli ad, /fly lobi, xüsusi VIP dəsti və 2 əlavə ev nöqtəsi." },
+        { id: 2, name: "VIP+ (30 Gün)", category: "Rütbə", price: 10, desc: "Bütün VIP özəllikləri + /heal, /feed və xüsusi hissəciklər." },
+        { id: 3, name: "MVIP (30 Gün)", category: "Rütbə", price: 18, desc: "Maksimum üstünlüklər, 5 ev nöqtəsi, /repair və aylıq açar hədiyyəsi." },
+        { id: 4, name: "Əfsanəvi Sandıq Açarı (3x)", category: "Açar", price: 4, desc: "Spawn mərkəzindəki Əfsanəvi sandıqdan nadir əşyalar qazanın." }
+      ],
+      rewardCodes: [
+        { code: "KARABAKH2026", reward: "3 Günlük VIP + 2.500 Oyun Pulu" }
+      ],
+      promoCodes: [
+        { code: "BAKI20", percent: 20 }
+      ],
+      staffQuestions: {
+        rehber: [
+          "Neçə yaşınız var və gündəlik serverdə neçə saat aktiv ola bilərsiniz?",
+          "Yeni gələn bir oyunçu server sistemlərini başa düşmədikdə ona necə kömək edərsiniz?",
+          "Söhbətdə iki oyunçu mübahisə edərsə, Rəhbər olaraq ilk addımınız nə olar?",
+          "Daha əvvəl hər hansı Minecraft serverində Rəhbər və ya Moderator olmusunuzmu?"
+        ],
+        aac: [
+          "Hilə (Cheat) yoxlaması (SS - ScreenShare) zamanı oyunçunun kompüterində ilk olaraq hansı qovluqları və proqramları yoxlayırsınız?",
+          "KillAura, Reach, Velocity və X-Ray kimi hilələri oyun daxilində necə ayırd edirsiniz?",
+          "Oyunçu SS (ekran paylaşımı) tələbindən imtina edərsə və ya oyundan çıxarsa nə etməlisiniz?",
+          "AnyDesk, Everything, Process Hacker kimi yoxlama alətlərindən istifadə təcrübəniz varmı?"
+        ]
+      },
+      punishments: [],
+      applications: [],
+      tickets: [
+        { id: 101, nick: "Nurlan_AZ", category: "Ümumi Yardım", message: "Bedrock ilə 19132 portundan rahat qoşuldum, təşəkkürlər!", status: "Cavablandı" }
+      ]
+    };
+
+    let state = loadState();
+    let isAdminLoggedIn = false;
+    let selectedRole = "rehber";
+    let activePromo = null;
+    let currentAppFilter = "all";
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return { ...defaultState, ...parsed, settings: { ...defaultState.settings, ...(parsed.settings || {}) } };
+        }
+      } catch (e) {}
+      return JSON.parse(JSON.stringify(defaultState));
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove("show"), 3000);
+    }
+
+    function copyText(text, message) {
+      navigator.clipboard?.writeText(text);
+      showToast(message || "Kopyalandı: " + text);
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      document.querySelectorAll(".theme-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.themeVal === theme);
+      });
+    }
+
+    function renderNavigation() {
+      const nav = document.getElementById("main-nav");
+      const baseItems = [
+        { id: "home", label: "Ana Səhifə" },
+        { id: "store", label: "Mağaza" },
+        { id: "support", label: "Dəstək" },
+        { id: "staff", label: "Yetkili Müraciəti" },
+        { id: "punishments", label: "Cəzalar" }
+      ];
+
+      let html = baseItems.map(item =>
+        `<button class="nav-btn" data-nav="${item.id}" onclick="navigate('${item.id}')">${item.label}</button>`
+      ).join("");
+
+      state.customTabs.forEach(tab => {
+        html += `<button class="nav-btn" data-nav="custom-${tab.id}" onclick="openCustomTab('${tab.id}')">${tab.name}</button>`;
+      });
+
+      nav.innerHTML = html;
+      applySiteSettingsToUI();
+    }
+
+    function applySiteSettingsToUI() {
+      document.getElementById("site-brand-name").textContent = state.settings.brand;
+      document.getElementById("hero-title").textContent = state.settings.brand;
+      document.getElementById("footer-brand").textContent = state.settings.brand;
+      document.getElementById("hero-ip-text").textContent = state.settings.ip;
+      const emailEl = document.getElementById("footer-email");
+      emailEl.textContent = state.settings.email;
+      emailEl.href = "mailto:" + state.settings.email;
+    }
+
+    function navigate(viewId) {
+      document.querySelectorAll(".section-view").forEach(sec => sec.classList.remove("active"));
+      const target = document.getElementById("view-" + viewId);
+      if (target) target.classList.add("active");
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.nav === viewId);
+      });
+
+      if (viewId === "store") renderStore();
+      if (viewId === "staff") renderStaffQuestions();
+      if (viewId === "punishments") renderPunishments();
+      if (viewId === "support") renderSupportTickets();
+      if (viewId === "admin") renderAdminPanel();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openCustomTab(tabId) {
+      const tab = state.customTabs.find(t => t.id === tabId);
+      if (!tab) return;
+      document.getElementById("custom-page-title").textContent = tab.name;
+      document.getElementById("custom-page-body").innerHTML = tab.content.replace(/\n/g, "<br>");
+      document.querySelectorAll(".section-view").forEach(sec => sec.classList.remove("active"));
+      document.getElementById("view-custom").classList.add("active");
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.nav === "custom-" + tabId);
+      });
+    }
+
+    function renderStore() {
+      const grid = document.getElementById("store-items-grid");
+      const banner = document.getElementById("active-promo-banner");
+
+      if (activePromo) {
+        banner.style.display = "flex";
+        banner.style.justifyContent = "space-between";
+        banner.style.alignItems = "center";
+        banner.innerHTML = `
+          <span>🎉 Aktiv Promokod: <strong style="color:var(--accent);">${activePromo.code}</strong> — Bütün məhsullara <strong>%${activePromo.percent}</strong> endirim tətbiq olundu!</span>
+          <button class="pill-btn" onclick="activePromo=null;renderStore();">Ləğv Et</button>
+        `;
+      } else {
+        banner.style.display = "none";
+      }
+
+      grid.innerHTML = state.products.map(p => {
+        const finalPrice = activePromo ? (p.price * (1 - activePromo.percent / 100)).toFixed(2) : p.price.toFixed(2);
+        return `
+          <div class="product-card">
+            <div>
+              <span class="product-tag">${p.category}</span>
+              <h3 style="font-size:1.2rem;margin:10px 0 6px;">${p.name}</h3>
+              <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.45;">${p.desc}</p>
+            </div>
+            <div>
+              <div class="price-row" style="margin-bottom:12px;">
+                <span class="price-now">${finalPrice} ₼</span>
+                ${activePromo ? `<span class="price-old">${p.price.toFixed(2)} ₼</span>` : ""}
+              </div>
+              <button class="pill-btn primary" style="width:100%;justify-content:center;" onclick="buyProduct('${p.name}', '${finalPrice}')">
+                🛒 Satın Al
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function applyPromoCode() {
+      const val = document.getElementById("promo-input").value.trim().toUpperCase();
+      if (!val) return showToast("Zəhmət olmasa promokod daxil edin.");
+      const found = state.promoCodes.find(p => p.code.toUpperCase() === val);
+      if (!found) {
+        showToast("❌ Yanlış və ya müddəti bitmiş promokod!");
+        return;
+      }
+      activePromo = found;
+      renderStore();
+      showToast(`✅ ${found.code} tətbiq edildi! %${found.percent} endirim.`);
+    }
+
+    function buyProduct(name, price) {
+      showToast(`✅ "${name}" (${price} ₼) üçün sifariş yaradıldı! Əlaqə: ${state.settings.email}`);
+    }
+
+    function selectStaffRole(role) {
+      selectedRole = role;
+      document.getElementById("role-card-rehber").classList.toggle("selected", role === "rehber");
+      document.getElementById("role-card-aac").classList.toggle("selected", role === "aac");
+      renderStaffQuestions();
+    }
+
+    function renderStaffQuestions() {
+      const container = document.getElementById("dynamic-staff-questions");
+      const list = state.staffQuestions[selectedRole] || [];
+      container.innerHTML = list.map((q, idx) => `
+        <div class="form-group">
+          <label>${idx + 1}. ${q}</label>
+          <textarea class="input-control staff-answer-input" data-question="${q}" placeholder="Cavabınızı buraya yazın..." required></textarea>
+        </div>
+      `).join("");
+    }
+
+    function submitStaffApplication(e) {
+      e.preventDefault();
+      const nick = document.getElementById("app-nick").value.trim();
+      const discord = document.getElementById("app-discord").value.trim();
+      const answers = Array.from(document.querySelectorAll(".staff-answer-input")).map(el => ({
+        q: el.dataset.question,
+        a: el.value.trim()
+      }));
+
+      state.applications.unshift({
+        id: Date.now(),
+        roleKey: selectedRole,
+        role: selectedRole === "aac" ? "AAC (Hilə Yoxlayan)" : "Rəhbər",
+        nick,
+        discord,
+        answers,
+        status: "Gözləmədə",
+        date: new Date().toLocaleDateString("az-AZ")
+      });
+      saveState();
+      e.target.reset();
+      showToast("✅ Yetkili müraciətiniz uğurla göndərildi!");
+    }
+
+    function setAppFilter(filter) {
+      currentAppFilter = filter;
+      ["all", "rehber", "aac"].forEach(k => {
+        const btn = document.getElementById("filter-app-" + k);
+        if (btn) btn.classList.toggle("primary", k === filter);
+      });
+      renderApplicationsInbox();
+    }
+
+    function decideApplication(appId, decision) {
+      const app = state.applications.find(a => a.id === appId);
+      if (!app) return;
+      app.status = decision === "accept" ? "Qəbul Edildi" : "Rədd Edildi";
+      saveState();
+      renderApplicationsInbox();
+      showToast(
+        decision === "accept"
+          ? `✅ ${app.nick} (${app.role}) müraciəti QƏBUL EDİLDİ!`
+          : `❌ ${app.nick} (${app.role}) müraciəti RƏDD EDİLDİ.`
+      );
+    }
+
+    function deleteApplication(appId) {
+      state.applications = state.applications.filter(a => a.id !== appId);
+      saveState();
+      renderApplicationsInbox();
+      showToast("🗑️ Müraciət silindi.");
+    }
+
+    function renderApplicationsInbox() {
+      const listEl = document.getElementById("admin-applications-list");
+      const countEl = document.getElementById("admin-app-count");
+
+      const filtered = state.applications.filter(app => {
+        if (currentAppFilter === "all") return true;
+        if (app.roleKey) return app.roleKey === currentAppFilter;
+        return currentAppFilter === "aac" ? app.role.includes("AAC") : !app.role.includes("AAC");
+      });
+
+      if (countEl) countEl.textContent = filtered.length;
+      if (!listEl) return;
+
+      if (!filtered.length) {
+        listEl.innerHTML = `<p style="color:var(--text-secondary);">Bu kateqoriyada müraciət yoxdur.</p>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(app => {
+        const statusClass =
+          app.status === "Qəbul Edildi" ? "badge-accepted" :
+          app.status === "Rədd Edildi" ? "badge-rejected" : "badge-discount";
+
+        return `
+          <div class="app-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+              <div>
+                <strong>${app.nick}</strong> <span style="color:var(--text-secondary);font-size:0.84rem;">(${app.discord})</span>
+              </div>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <span class="badge-discount">${app.role}</span>
+                <span class="${statusClass}">${app.status || "Gözləmədə"}</span>
+              </div>
+            </div>
+            <div style="font-size:0.76rem;color:var(--text-muted);margin-bottom:8px;">Tarix: ${app.date}</div>
+            ${app.answers.map(x => `
+              <div style="font-size:0.82rem;margin-top:7px;">
+                <strong>${x.q}</strong><br>
+                <span style="color:var(--text-secondary);">${x.a}</span>
+              </div>
+            `).join("")}
+            <div class="app-actions">
+              <button class="pill-btn accept" onclick="decideApplication(${app.id}, 'accept')">✅ Qəbul Et</button>
+              <button class="pill-btn reject" onclick="decideApplication(${app.id}, 'reject')">❌ Rədd Et</button>
+              <button class="pill-btn" onclick="deleteApplication(${app.id})">🗑️ Sil</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function submitSupportTicket(e) {
+      e.preventDefault();
+      const nick = document.getElementById("sup-nick").value.trim();
+      const category = document.getElementById("sup-cat").value;
+      const message = document.getElementById("sup-msg").value.trim();
+
+      state.tickets.unshift({
+        id: Math.floor(100 + Math.random() * 900),
+        nick,
+        category,
+        message,
+        status: "Gözləmədə"
+      });
+      saveState();
+      e.target.reset();
+      renderSupportTickets();
+      showToast("📩 Dəstək sorğunuz yaradıldı!");
+    }
+
+    function renderSupportTickets() {
+      const list = document.getElementById("support-tickets-list");
+      if (!state.tickets.length) {
+        list.innerHTML = `<p style="color:var(--text-secondary);">Hələ heç bir dəstək sorğusu yoxdur.</p>`;
+        return;
+      }
+      list.innerHTML = state.tickets.map(t => `
+        <div style="background:var(--bg-elevated);padding:14px;border-radius:12px;border:1px solid var(--border-color);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <strong>#${t.id} • ${t.nick} (${t.category})</strong>
+            <span class="badge-discount">${t.status}</span>
+          </div>
+          <p style="font-size:0.86rem;color:var(--text-secondary);">${t.message}</p>
+        </div>
+      `).join("");
+    }
+
+    function updatePunishmentStats() {
+      const total = state.punishments.length;
+      const bans = state.punishments.filter(p => p.type === "BAN").length;
+      const mutes = state.punishments.filter(p => p.type === "MUTE").length;
+      const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+      const thisWeek = state.punishments.filter(p => (p.timestamp || 0) >= weekAgo).length;
+
+      const summaryEl = document.getElementById("home-punishments-summary");
+      if (summaryEl) {
+        summaryEl.textContent = `${total} qeyd • bu həftə ${thisWeek} • qadağa yoxla, etiraz et`;
+      }
+
+      const stripEl = document.getElementById("punishments-stats-strip");
+      if (stripEl) {
+        stripEl.innerHTML = `
+          <div class="stat-mini"><div class="val">${total}</div><div class="lbl">Ümumi Qeyd</div></div>
+          <div class="stat-mini"><div class="val" style="color:#f87171;">${bans}</div><div class="lbl">Aktiv Ban</div></div>
+          <div class="stat-mini"><div class="val" style="color:#fbbf24;">${mutes}</div><div class="lbl">Mute</div></div>
+          <div class="stat-mini"><div class="val" style="color:#60a5fa;">${thisWeek}</div><div class="lbl">Bu Həftə Verilən</div></div>
+        `;
+      }
+    }
+
+    function renderPunishments() {
+      updatePunishmentStats();
+      const query = (document.getElementById("punishment-search")?.value || "").toLowerCase();
+      const tbody = document.getElementById("punishments-tbody");
+      const filtered = state.punishments.filter(p => p.player.toLowerCase().includes(query));
+
+      if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-secondary);padding:24px;">Hal-hazırda heç bir cəza / qadağa qeydi yoxdur.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(p => {
+        const cls = p.type === "BAN" ? "status-ban" : p.type === "MUTE" ? "status-mute" : "status-kick";
+        return `
+          <tr>
+            <td><strong>${p.player}</strong></td>
+            <td><span class="status-pill ${cls}">${p.type}</span></td>
+            <td>${p.reason}</td>
+            <td>${p.staff}</td>
+            <td>${p.duration}</td>
+            <td style="color:var(--text-secondary);">${p.date}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function openRedeemModal() {
+      document.getElementById("redeem-modal").classList.add("open");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+
+    function redeemUserCode(e) {
+      e.preventDefault();
+      const nick = document.getElementById("redeem-nick").value.trim();
+      const codeVal = document.getElementById("redeem-code-input").value.trim().toUpperCase();
+      const found = state.rewardCodes.find(c => c.code.toUpperCase() === codeVal);
+
+      if (!found) {
+        showToast("❌ Kod tapılmadı və ya artıq istifadə olunub!");
+        return;
+      }
+      closeModal("redeem-modal");
+      e.target.reset();
+      showToast(`🎉 Təbriklər ${nick}! Qazanılan mükafat: ${found.reward}`);
+    }
+
+    function handleAdminClick() {
+      if (isAdminLoggedIn) {
+        navigate("admin");
+      } else {
+        document.getElementById("admin-login-modal").classList.add("open");
+      }
+    }
+
+    function verifyAdminLogin(e) {
+      e.preventDefault();
+      const pass = document.getElementById("admin-password-input").value;
+      if (pass === ADMIN_PASS) {
+        isAdminLoggedIn = true;
+        closeModal("admin-login-modal");
+        document.getElementById("admin-password-input").value = "";
+        document.getElementById("admin-nav-btn").textContent = "⚙️ İdarəçi Paneli";
+        showToast("✅ İdarəçi hesabına uğurla daxil oldunuz!");
+        navigate("admin");
+      } else {
+        showToast("❌ Şifrə yanlışdır!");
+      }
+    }
+
+    function logoutAdmin() {
+      isAdminLoggedIn = false;
+      document.getElementById("admin-nav-btn").textContent = "🔐 İdarəçi Girişi";
+      navigate("home");
+      showToast("İdarəçi hesabından çıxış edildi.");
+    }
+
+    function switchAdminTab(tabName, btnEl) {
+      document.querySelectorAll(".admin-tab-content").forEach(el => el.style.display = "none");
+      document.getElementById("admin-tab-" + tabName).style.display = "block";
+      document.querySelectorAll(".admin-tabs .pill-btn").forEach(b => b.classList.remove("primary"));
+      btnEl.classList.add("primary");
+    }
+
+    function renderAdminPanel() {
+      renderApplicationsInbox();
+
+      document.getElementById("admin-codes-list").innerHTML = state.rewardCodes.map((c, i) => `
+        <div style="background:var(--bg-elevated);padding:12px;border-radius:11px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <strong style="color:var(--accent);">${c.code}</strong>
+            <div style="font-size:0.82rem;color:var(--text-secondary);">Verəcəyi mükafat: ${c.reward}</div>
+          </div>
+          <button class="pill-btn" onclick="deleteRewardCode(${i})">Sil</button>
+        </div>
+      `).join("") || "<p style='color:var(--text-secondary);'>Kod yoxdur.</p>";
+
+      document.getElementById("admin-promos-list").innerHTML = state.promoCodes.map((p, i) => `
+        <div style="background:var(--bg-elevated);padding:12px;border-radius:11px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <strong style="color:var(--accent);">${p.code}</strong> — <span>%${p.percent} Endirim</span>
+          </div>
+          <button class="pill-btn" onclick="deletePromoCode(${i})">Sil</button>
+        </div>
+      `).join("") || "<p style='color:var(--text-secondary);'>Promokod yoxdur.</p>";
+
+      document.getElementById("admin-products-list").innerHTML = state.products.map((p, i) => `
+        <div style="background:var(--bg-elevated);padding:12px;border-radius:11px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <strong>${p.name}</strong> (${p.category}) — <span style="color:var(--accent);">${p.price} ₼</span>
+          </div>
+          <button class="pill-btn" onclick="deleteProduct(${i})" style="color:#f87171;">Sil</button>
+        </div>
+      `).join("");
+
+      const punishCountEl = document.getElementById("admin-punish-count");
+      if (punishCountEl) punishCountEl.textContent = state.punishments.length;
+      const adminPunishList = document.getElementById("admin-punishments-list");
+      if (adminPunishList) {
+        adminPunishList.innerHTML = state.punishments.map((p, i) => `
+          <div style="background:var(--bg-elevated);padding:12px;border-radius:11px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <div>
+              <strong>${p.player}</strong> <span class="badge-discount">${p.type}</span>
+              <div style="font-size:0.82rem;color:var(--text-secondary);margin-top:3px;">${p.reason} • ${p.duration} (${p.staff})</div>
+            </div>
+            <button class="pill-btn" onclick="deletePunishmentRecord(${i})" style="color:#f87171;">Sil</button>
+          </div>
+        `).join("") || "<p style='color:var(--text-secondary);'>Cəza qeydi yoxdur.</p>";
+      }
+
+      renderQuestionEditors();
+
+      document.getElementById("cfg-brand").value = state.settings.brand;
+      document.getElementById("cfg-ip").value = state.settings.ip;
+      document.getElementById("cfg-port").value = state.settings.port;
+      document.getElementById("cfg-email").value = state.settings.email;
+
+      document.getElementById("custom-tabs-admin-list").innerHTML = state.customTabs.map((t, i) => `
+        <div style="background:var(--bg-elevated);padding:10px 12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;">
+          <span>${t.name}</span>
+          <button class="pill-btn" onclick="deleteCustomTab(${i})">Sil</button>
+        </div>
+      `).join("");
+
+      document.getElementById("admin-tickets-list").innerHTML = state.tickets.map(t => `
+        <div style="background:var(--bg-elevated);padding:14px;border-radius:12px;">
+          <strong>#${t.id} • ${t.nick} — ${t.category}</strong>
+          <p style="font-size:0.84rem;color:var(--text-secondary);margin-top:4px;">${t.message}</p>
+        </div>
+      `).join("");
+    }
+
+    function createRewardCode() {
+      let code = document.getElementById("new-code-name").value.trim().toUpperCase();
+      const reward = document.getElementById("new-code-reward").value.trim();
+      if (!reward) return showToast("Kodun nə verəcəyini (mükafatı) yazın!");
+      if (!code) {
+        code = "KN-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+      }
+      state.rewardCodes.unshift({ code, reward });
+      saveState();
+
+      document.getElementById("created-code-preview").style.display = "flex";
+      document.getElementById("preview-code-val").textContent = code;
+      document.getElementById("preview-reward-val").textContent = "Verəcəyi mükafat: " + reward;
+
+      document.getElementById("new-code-name").value = "";
+      document.getElementById("new-code-reward").value = "";
+      renderAdminPanel();
+      showToast("✅ Yeni kod yaradıldı: " + code);
+    }
+
+    function deleteRewardCode(idx) {
+      state.rewardCodes.splice(idx, 1);
+      saveState();
+      renderAdminPanel();
+    }
+
+    function createPromoCode() {
+      const code = document.getElementById("new-promo-code").value.trim().toUpperCase();
+      const percent = parseInt(document.getElementById("new-promo-percent").value, 10);
+      if (!code) return showToast("Promokod adını daxil edin!");
+      state.promoCodes.unshift({ code, percent });
+      saveState();
+      document.getElementById("new-promo-code").value = "";
+      renderAdminPanel();
+      showToast(`🏷️ Promokod yaradıldı: ${code} (%${percent})`);
+    }
+
+    function deletePromoCode(idx) {
+      state.promoCodes.splice(idx, 1);
+      saveState();
+      renderAdminPanel();
+    }
+
+    function addProduct() {
+      const name = document.getElementById("prod-name").value.trim();
+      const category = document.getElementById("prod-cat").value.trim() || "Rütbə";
+      const price = parseFloat(document.getElementById("prod-price").value);
+      const desc = document.getElementById("prod-desc").value.trim() || "Karabakh Network xüsusi paketi.";
+
+      if (!name || isNaN(price) || price <= 0) {
+        return showToast("Məhsul adını və düzgün qiyməti daxil edin!");
+      }
+      state.products.push({ id: Date.now(), name, category, price, desc });
+      saveState();
+      document.getElementById("prod-name").value = "";
+      document.getElementById("prod-cat").value = "";
+      document.getElementById("prod-price").value = "";
+      document.getElementById("prod-desc").value = "";
+      renderAdminPanel();
+      showToast("✅ Məhsul mağazaya əlavə edildi!");
+    }
+
+    function deleteProduct(idx) {
+      state.products.splice(idx, 1);
+      saveState();
+      renderAdminPanel();
+      showToast("🗑️ Məhsul mağazadan silindi.");
+    }
+
+    function addPunishmentRecord() {
+      const player = document.getElementById("pun-player").value.trim();
+      const type = document.getElementById("pun-type").value;
+      const reason = document.getElementById("pun-reason").value.trim();
+      const staff = document.getElementById("pun-staff").value.trim() || "İdarəçi";
+      const duration = document.getElementById("pun-duration").value.trim() || "Müddətsiz";
+
+      if (!player || !reason) {
+        return showToast("Oyunçu adını və səbəbi daxil edin!");
+      }
+
+      const now = new Date();
+      const dateStr = now.toISOString().split("T")[0];
+      state.punishments.unshift({
+        player,
+        type,
+        reason,
+        staff,
+        duration,
+        date: dateStr,
+        timestamp: now.getTime()
+      });
+      saveState();
+
+      document.getElementById("pun-player").value = "";
+      document.getElementById("pun-reason").value = "";
+      document.getElementById("pun-staff").value = "";
+      document.getElementById("pun-duration").value = "";
+
+      updatePunishmentStats();
+      renderAdminPanel();
+      showToast(`🔨 ${player} üçün ${type} qeydi əlavə edildi.`);
+    }
+
+    function deletePunishmentRecord(idx) {
+      state.punishments.splice(idx, 1);
+      saveState();
+      updatePunishmentStats();
+      renderAdminPanel();
+      showToast("🗑️ Cəza qeydi silindi.");
+    }
+
+    function clearAllPunishments() {
+      state.punishments = [];
+      saveState();
+      updatePunishmentStats();
+      renderAdminPanel();
+      showToast("Bütün cəza qeydləri sıfırlandı.");
+    }
+
+    function renderQuestionEditors() {
+      ["rehber", "aac"].forEach(role => {
+        const container = document.getElementById(`edit-${role}-questions`);
+        container.innerHTML = state.staffQuestions[role].map((q, idx) => `
+          <div style="display:flex;gap:8px;margin-bottom:10px;">
+            <input type="text" class="input-control q-edit-${role}" value="${q.replace(/"/g, '&quot;')}" style="flex:1;" />
+            <button class="pill-btn" onclick="removeQuestion('${role}', ${idx})">✕</button>
+          </div>
+        `).join("");
+      });
+    }
+
+    function addQuestionField(role) {
+      state.staffQuestions[role].push("Yeni sual...");
+      renderQuestionEditors();
+    }
+
+    function removeQuestion(role, idx) {
+      state.staffQuestions[role].splice(idx, 1);
+      renderQuestionEditors();
+    }
+
+    function saveStaffQuestions() {
+      state.staffQuestions.rehber = Array.from(document.querySelectorAll(".q-edit-rehber")).map(i => i.value.trim()).filter(Boolean);
+      state.staffQuestions.aac = Array.from(document.querySelectorAll(".q-edit-aac")).map(i => i.value.trim()).filter(Boolean);
+      saveState();
+      showToast("💾 Yetkili sualları yeniləndi!");
+    }
+
+    function saveSiteSettings() {
+      state.settings.brand = document.getElementById("cfg-brand").value.trim() || "Karabakh Network";
+      state.settings.ip = document.getElementById("cfg-ip").value.trim() || "karabakhnw.mcsh.gg";
+      state.settings.port = document.getElementById("cfg-port").value.trim() || "19132";
+      state.settings.email = document.getElementById("cfg-email").value.trim() || "karabakhnetwork@gmail.com";
+      saveState();
+      applySiteSettingsToUI();
+      showToast("💾 Sayt tənzimləmələri yadda saxlanıldı!");
+    }
+
+    function addCustomTab() {
+      const name = document.getElementById("new-tab-name").value.trim();
+      const content = document.getElementById("new-tab-content").value.trim();
+      if (!name || !content) return showToast("Sekmə adını və məzmununu doldurun!");
+      const id = name.toLowerCase().replace(/[^a-z0-9əöüıçşğ]+/g, "-") + "-" + Date.now().toString().slice(-3);
+      state.customTabs.push({ id, name, content });
+      saveState();
+      document.getElementById("new-tab-name").value = "";
+      document.getElementById("new-tab-content").value = "";
+      renderNavigation();
+      renderAdminPanel();
+      showToast("✅ Yeni sekmə menyuya əlavə edildi: " + name);
+    }
+
+    function deleteCustomTab(idx) {
+      state.customTabs.splice(idx, 1);
+      saveState();
+      renderNavigation();
+      renderAdminPanel();
+      showToast("Sekmə silindi.");
+    }
+
+    async function fetchLiveServerStatus() {
+      const countEl = document.getElementById("online-players");
+      const statusLabelEl = document.getElementById("server-status-label");
+      const versionLabelEl = document.getElementById("server-version-label");
+      const ip = state.settings.ip || "karabakhnw.mcsh.gg";
+      const port = state.settings.port || "19132";
+
+      try {
+        let res = await fetch(`https://api.mcsrvstat.us/3/${encodeURIComponent(ip)}`);
+        let data = await res.json();
+
+        if (!data.online) {
+          const bedrockRes = await fetch(`https://api.mcsrvstat.us/bedrock/3/${encodeURIComponent(ip)}:${encodeURIComponent(port)}`);
+          const bedrockData = await bedrockRes.json();
+          if (bedrockData.online) data = bedrockData;
+        }
+
+        if (data && data.online) {
+          const online = data.players?.online ?? 0;
+          const max = data.players?.max ?? 0;
+          countEl.textContent = online.toLocaleString("az-AZ");
+          statusLabelEl.innerHTML = `<span class="live-dot"></span>Şu An Çevrimiçi (${online} / ${max} Oyunçu)`;
+          if (data.version) {
+            versionLabelEl.textContent = `VERSİYA: ${data.version} • ${state.settings.email}`;
+          }
+        } else {
+          countEl.textContent = "0";
+          statusLabelEl.innerHTML = `<span class="live-dot" style="background:#ef4444;box-shadow:0 0 8px #ef4444;"></span>Server Hazırda Oflayndır (0 Oyunçu)`;
+        }
+      } catch (err) {
+        countEl.textContent = "0";
+        statusLabelEl.innerHTML = `<span class="live-dot"></span>Canlı əlaqə gözlənilir`;
+      }
+    }
+
+    async function fetchLiveDiscordStatus() {
+      const memberEl = document.getElementById("discord-member-count");
+      const subEl = document.getElementById("discord-online-sub");
+
+      try {
+        const res = await fetch("https://discord.com/api/v9/invites/R29x5BvBW?with_counts=true");
+        const data = await res.json();
+        if (data && typeof data.approximate_member_count === "number") {
+          const total = data.approximate_member_count;
+          const online = data.approximate_presence_count ?? 0;
+          memberEl.textContent = `${total.toLocaleString("az-AZ")} Üzv`;
+          subEl.innerHTML = `<span class="live-dot"></span>${online.toLocaleString("az-AZ")} onlayn • qoşulmaq üçün kliklə`;
+        } else {
+          memberEl.textContent = "Discord İcması";
+        }
+      } catch (err) {
+        memberEl.textContent = "Discord İcması";
+      }
+    }
+
+    renderNavigation();
+    renderStore();
+    renderStaffQuestions();
+    renderPunishments();
+    renderSupportTickets();
+    fetchLiveServerStatus();
+    fetchLiveDiscordStatus();
+    setInterval(() => {
+      fetchLiveServerStatus();
+      fetchLiveDiscordStatus();
+    }, 60000);
+  </script>
+</body>
+</html>
